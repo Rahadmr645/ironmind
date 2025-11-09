@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const notificationSchema = ({
+const notificationSchema = new mongoose.Schema ({
    userId: {
        type:mongoose.Schema.Types.ObjectId, ref:"user"
    },
@@ -12,7 +12,6 @@ const notificationSchema = ({
    isRead: {
      type: Boolean,
      default: false
-false,
 }, {timestamps: true});
 
 

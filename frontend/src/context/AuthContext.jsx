@@ -9,7 +9,7 @@ export const AuthContextProvider = ({children}) =>{
     const [showMenuForm, setShowMenuForm] = useState(false);
     const [currState, setCurrState] = useState('Signup')
     //const URL = import.meta.env.VITE_API_URL;
-    const URL = "http://192.168.8.225:5003"
+    const URL = "http://10.161.68.227:5003"
 
 const contextValu= {
   showMenuForm,

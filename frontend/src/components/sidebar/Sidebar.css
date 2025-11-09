@@ -1,0 +1,45 @@
+.sidebar-container {
+    width: 20%;
+    height: 100vh;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    padding: 10px 0 0px 50px;
+    border-right: 1px solid gray;
+}
+
+.sidebar-container h2 {
+    margin-bottom: 40px;
+    color: white;
+}
+
+.sideber-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+
+}
+
+.item-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid gray;
+    border-right: none;
+    padding: 5px;
+    
+    
+}
+
+.item-box:hover {
+    background-color: gray;
+    color: black;
+    border-radius: 5px 0px 0px 5px;
+
+}
+
+.item-box p {
+    font-size: 20px;
+    color: white;
+}

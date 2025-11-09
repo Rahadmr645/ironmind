@@ -13,7 +13,7 @@ export const userCreate = async (req, res) => {
 
     try {
 
-        
+        console.log('data', req.body)
         const { username, email, password, profilePic } = req.body;
 
         if (!username || !email || !password) {

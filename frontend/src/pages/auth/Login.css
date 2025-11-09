@@ -1,0 +1,82 @@
+.loginForm-container {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  z-index: 1000;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+}
+
+
+.lgoinForm {
+  width: 400px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 100px;
+}
+
+.login-header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 0px 20px;
+  align-items: center;
+
+}
+
+.submitn-btn {
+  width: 300px;
+  margin-left: 40px;
+  border: none;
+}
+
+.span {
+  color: tomato;
+}
+
+.span:hover {
+  font-size: 1.03em;
+  cursor: pointer;
+}
+
+
+.rol-container {
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+}
+
+
+.rol-container select {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  
+}
+
+
+.rol-container select option {
+  border-radius: 5px;
+}
+
+
+/*mobile responsive*/
+
+@media (max-width : 475px) {
+  .lgoinForm {
+    width: 300px;
+  }
+
+  .submit-btn {
+    width: 200px;
+  }
+}

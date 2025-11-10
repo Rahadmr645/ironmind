@@ -1,7 +1,6 @@
 
 .app-container{
     width: 100%;
-    border: 1px solid red;
     display: flex;
     padding-top: 30px;
     justify-content: space-between;
@@ -10,6 +9,5 @@
 }
 .routes-container{
   flex-grow: 1;
-  border: 1px solid yellow;
   padding: 10px;
 }

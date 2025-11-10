@@ -13,8 +13,8 @@ export const AuthContextProvider = ({children}) =>{
     
     
     
-    //const URL = import.meta.env.VITE_API_URL;
-    const URL = "http://192.168.8.225:5003"
+    const URL = import.meta.env.VITE_API_URL;
+    //const URL = "http://192.168.8.225:5003"
 
  useEffect(() => {
    const decoded = getUserFromToken();

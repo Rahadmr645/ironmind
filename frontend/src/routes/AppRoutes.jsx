@@ -6,7 +6,7 @@ import Login from '../pages/auth/Login.jsx'
 const AppRoutes = () => {
 
   return (
-    <div>
+    <div className="routes-container">
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path="/" element={

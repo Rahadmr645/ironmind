@@ -1,24 +1,26 @@
 .sidebar-container {
     width: 20%;
     height: 100vh;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    justify-content: center;
-    padding: 10px 0 0px 50px;
     border-right: 1px solid gray;
 }
 
 .sidebar-container h2 {
     margin-bottom: 40px;
     color: white;
+    padding: 10px 0 0px 10px;
 }
+
+
 
 .sideber-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-
+    padding: 10px 0 0px 50px;
+    
 }
 
 .item-box {
@@ -28,9 +30,36 @@
     border: 1px solid gray;
     border-right: none;
     padding: 5px;
-    
+    text-decoration: none;
     
 }
+
+.item-box.active {
+  border-right: 1px solid #00f6ff;
+  background: rgba(0, 246, 255, 0.1);
+  color: #fff;
+  box-shadow: 5px 0 10px #00f6ff;
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Glowing animation */
+.item-box.active {
+  border-right: 2px solid #00f6ff;
+  background: rgba(0, 246, 255, 0.1);
+  color: #fff;
+  animation: glow-right 1.5s infinite alternate;
+}
+
+@keyframes glow-right {
+  from {
+    box-shadow: 2px 0 5px #00f6ff;
+  }
+  to {
+    box-shadow: 5px 0 15px #00f6ff;
+  }
+}
+
+
 
 .item-box:hover {
     background-color: gray;
@@ -42,4 +71,23 @@
 .item-box p {
     font-size: 20px;
     color: white;
+}
+
+@media (max-width: 600px) {
+  .sidebar-container {
+    width: 15%;
+    border: none;
+  }
+    .sidebar-container h2 {
+      width: 100%;;
+      color: white;
+      font-size: 15px;
+      
+    }
+   .sideber-section{
+     padding: 10px 0 10px 20px;
+     border: 1px solid gray;
+     border-left: none;
+     border-radius: 0 5px 5px 0;
+   }
 }

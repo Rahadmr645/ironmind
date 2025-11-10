@@ -22,12 +22,12 @@ const Sidebar = () => {
         <div className='sidebar-container'>
             <h2>IronMind</h2>
             <div className="sideber-section">
-                {menuItems.map((item, index) => {
-                    <NavLink to={item.paht} key={index} className='item-box' >
+                {menuItems.map((item, index) => (
+                    <NavLink to={item.path} key={index} className='item-box' >
                         <p>{item.icon}</p>
-                        <p>{item.label}</p>
+                        <p className="d-none d-md-block">{item.label}</p>
                     </NavLink>
-                })}
+               ) )}
             </div>
         </div>
     )

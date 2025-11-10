@@ -6,6 +6,7 @@ import User from '../models/userModel.js'
 export const taskCreate = async (req, res) => {
   
   try{
+    console.log('taskdata', req.body)
     const { userId} = req.params;
     const {title,startTime,endTime,durationMinutes,status,proof,punishment,punishmentDuration,reviewedByAI} = req.body
      

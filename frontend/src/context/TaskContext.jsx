@@ -12,9 +12,20 @@ export const TaskContextProvier = ({ children }) => {
 
     const [taskContainer, setTaskContainer] = useState([]);
 
+   /* useEffect(() => {
+    const interval = setInterval(async () => {
+      try{
+       const res =  await axios.put(`${URL}/api/task/auto-update-overdue`);
+       console.log(res.data.message)
+        console.log("chacked overdue")
+      }catch(error) {
+        console.log("faild to update overdue", error)
+      }
+    }, 3000);
+    return () => clearInterval(interval)
+  }, []);
 
-
-
+  */
     // get the task 
 
 

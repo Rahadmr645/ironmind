@@ -27,11 +27,21 @@ const TaskCard = ({
       <div className="task-time">
         <div>
           <strong>Start:</strong>{" "}
-          {new Date(startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          {new Date(startTime).toLocaleTimeString([], {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit" })}
         </div>
         <div>
           <strong>End:</strong>{" "}
-          {new Date(endTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          {new Date(endTime).toLocaleTimeString([], {
+           year: 'numeric',
+           month: 'short',
+           day: 'numeric',
+          hour: "2-digit", 
+          minute: "2-digit" })}
         </div>
         <div>
           <strong>Duration:</strong> {duration} mins

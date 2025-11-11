@@ -12,8 +12,7 @@ const CreateTask = () => {
     title: "",
     startTime: "",
     endTime: "",
-    durationMinutes: "",
-    status: "pending",
+    status: "upcoming",
     proof: "",
     punishment: "",
     punishmentDuration: "",
@@ -45,6 +44,23 @@ const CreateTask = () => {
     if (!user?.id) return setMessage("User not found");
 
     try {
+      
+      const today = new Date().toISOString().split("T")[0]; 
+      
+      const startTime = new Date(`${today}T${formData.startTime}:00`);
+      
+      const endTime = new Date(`${today}T${formData.endTime}:00`);
+      
+      
+      const payload = {
+        ...formData,
+        startTime,
+        endTime,
+      }
+      
+      
+      
+      
       const res = await axios.post(
         `${URL}/api/task/create/${user.id}`,
         formData
@@ -86,28 +102,26 @@ const CreateTask = () => {
             onChange={handleChange}
             required
           />
+          <label>
+            Start Time
           <input
-            type="time"
+            type="datetime-local"
             name="startTime"
             value={formData.startTime}
             onChange={handleChange}
             required
           />
-          <input
-            type="time"
+           </label>
+          <label>End Time 
+           <input
+            type="datetime-local"
             name="endTime"
             value={formData.endTime}
             onChange={handleChange}
             required
           />
-          <input
-            type="number"
-            name="durationMinutes"
-            placeholder="Duration (in minutes)"
-            value={formData.durationMinutes}
-            onChange={handleChange}
-            required
-          />
+          </label>
+         
           <input
             type="text"
             name="proof"

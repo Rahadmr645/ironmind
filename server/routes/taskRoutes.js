@@ -1,5 +1,5 @@
 import express from "express"
-import { deleteTaskByUser, getAllTask, getUserTaskList, taskCreate } from '../controller/taskController.js'
+import { deleteTaskByUser, getAllTask, getUserTaskList, taskCreate,autoUpdateOverdueTask } from '../controller/taskController.js'
 
 const router = express.Router();
 
@@ -16,5 +16,6 @@ router.get('/getAllTask', getAllTask);
 // rotue: 04
 router.delete('/deleteTaskByUser/:userId', deleteTaskByUser);
 
-
+// routes 06:
+router.put("/auto-update-overdue", autoUpdateOverdueTask);
 export default router;

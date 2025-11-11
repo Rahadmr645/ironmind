@@ -30,7 +30,11 @@ const taskSchema = new mongoose.Schema(
         message: "End time must be after start time"
       }
     },
-    durationMinutes: Number,
+    durationMinutes:{
+       type: Number,
+       default: 0,
+       set: v => Number(v)  || 0
+    },
 
     status: {
       type: String,
@@ -60,7 +64,7 @@ const taskSchema = new mongoose.Schema(
 
 taskSchema.pre("save", function (next) {
   if (this.startTime && this.endTime) {
-    const diff = (this.endTime - this.startTime) / 6000;
+    const diff = (this.endTime - this.startTime) / (1000 * 60);
     this.durationMinutes = diff;
   }
   next();

@@ -1,8 +1,25 @@
 
+import cron from "node-cron";
 import Task from '../models/taskModel.js'
 import User from '../models/userModel.js'
 
-
+cron.schedule("*/1 * * * *", async () => {
+  try {
+    const now = new Date();
+    const result = await Task.updateMany(
+      { endTime: {$lt : now}, status: {
+        $nin : ["completed", "overdue"]
+      } },
+      { $set : {status: "overdue"}}
+      );
+      
+      if(result.modifiedCount > 0) {
+        console.log(`${result.modifiedCount} task marked as overdue`)
+      }
+  } catch (error) {
+    console.error("error updating overdue task:", error);
+  }
+})
 
 // 01: taks create 
 export const taskCreate = async (req, res) => {
@@ -10,7 +27,18 @@ export const taskCreate = async (req, res) => {
   try {
     console.log('taskdata', req.body)
     const { userId } = req.params;
-    const { title, startTime, endTime, durationMinutes, status, proof, punishment, punishmentDuration, reviewedByAI } = req.body
+    const { 
+    title, 
+    startTime,
+    endTime, 
+    durationMinutes,
+    status,
+    proof, 
+    punishment, 
+    punishmentDuration,
+    reviewedByAI 
+      
+    } = req.body
 
 
     if (!userId) return res.status(400).json({ message: "please enter userId" });
@@ -110,3 +138,37 @@ export const updateTask = async (req, res) => {
 
   }
 }
+
+
+
+
+// 06: autoupadte for overdue
+
+export const autoUpdateOverdueTask = async(req,res) => {
+  
+  try{
+    const  now = new Date();
+    
+    // Find task that are past endtime without complete
+    
+    const overdueTask  = await Task.find({
+      endTime : { $lt : now},
+      status : { $nin : ["completed","overdue"] }
+    }) ;
+    
+    const updates = overdueTask.map(async (task) => {
+      task.status = "overdue";
+      await task.save();
+    });
+    
+    
+    await  Promise.all(updates);
+    
+    res.status(200).json({message:`${overdueTask.length} task updates to overdue`})
+  }catch(error) {
+    console.error("Error updating overdue tasks:", error);
+    res.status(500).json({ error: "Failed to update overdue tasks" });
+  }
+  }
+  
+  

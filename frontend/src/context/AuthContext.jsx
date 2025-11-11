@@ -6,15 +6,14 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) =>{
   
   const [showLogin, setShowLogin] = useState(false);
-    const [showMenuForm, setShowMenuForm] = useState(false);
     const [currState, setCurrState] = useState('Signup');
     const [user, setUser] = useState(null);
-   const [showAddTask, setShowAddTask] = useState(false);
+
     
     
     
-    const URL = import.meta.env.VITE_API_URL;
-    //const URL = "http://192.168.8.225:5003"
+    // const URL = import.meta.env.VITE_API_URL;
+    const URL = "http://10.161.68.227:5003"
 
  useEffect(() => {
    const decoded = getUserFromToken();
@@ -25,8 +24,6 @@ export const AuthContextProvider = ({children}) =>{
     
     
 const contextValu= {
-  showMenuForm,
-  setShowMenuForm,
   showLogin,
   setShowLogin,
   currState,
@@ -34,8 +31,6 @@ const contextValu= {
   URL,
   user,
   setUser,
-  showAddTask, 
-  setShowAddTask, 
 }  
   
   return (

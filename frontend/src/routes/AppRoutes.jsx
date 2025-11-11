@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import DashBoard from '../pages/dashboard/dasboard/DashBoard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import Login from '../pages/auth/Login.jsx'
+import MyAllTask from '../pages/dashboard/myalltask/MyAllTask.jsx'
 const AppRoutes = () => {
 
   return (
@@ -11,9 +12,10 @@ const AppRoutes = () => {
         <Route path='/login' element={<Login />} />
         <Route path="/" element={
           <ProtectedRoute>
-           <DashBoard/>
+            <DashBoard />
           </ProtectedRoute>
         } />
+        <Route path='/myAllTask' element={<MyAllTask />} />
       </Routes>
     </div>
   )

@@ -5,6 +5,8 @@
     flex-direction: column;
     gap: 20px;
     border-right: 1px solid gray;
+    position: sticky;
+    top: 0px;
 }
 
 .sidebar-container h2 {

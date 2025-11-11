@@ -1,11 +1,13 @@
-import React, { useEffect,useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import axios from "axios";
-import { AuthContext } from "../../../context/AuthContext"; 
+import { AuthContext } from "../../../context/AuthContext";
 import './CreateTask.css'
+import { TaskContext } from "../../../context/TaskContext";
 
 const CreateTask = () => {
-  const { user,URL,showAddTask, setShowAddTask } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const { URL, showAddTask, setShowAddTask } = useContext(TaskContext);
   const [formData, setFormData] = useState({
     title: "",
     startTime: "",
@@ -17,16 +19,16 @@ const CreateTask = () => {
     punishmentDuration: "",
     reviewedByAI: false,
   });
-  
-  useEffect(() => {
-  showAddTask 
-    ? document.body.style.overflow = "hidden" 
-    : document.body.style.overflow = "auto";
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [showAddTask]);
+  useEffect(() => {
+    showAddTask
+      ? document.body.style.overflow = "hidden"
+      : document.body.style.overflow = "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showAddTask]);
 
   const [message, setMessage] = useState("");
 
@@ -59,6 +61,8 @@ const CreateTask = () => {
         punishmentDuration: "",
         reviewedByAI: false,
       });
+
+      setShowAddTask(false);
     } catch (error) {
       setMessage(error.response?.data?.message || "Failed to create task");
       console.error(error.response?.data?.message)
@@ -67,77 +71,77 @@ const CreateTask = () => {
 
   return (
     <div className="task-container">
-    <div className="task-form-container">
-      <div className="task-form-header">
+      <div className="task-form-container">
+        <div className="task-form-header">
           <h2>Create New Task</h2>
           <h2 onClick={() => setShowAddTask(false)} className="task-cancel-icon"><MdOutlineCancel /></h2>
-      </div>
-    
-      <form onSubmit={handleSubmit} className="task-form">
-        <input
-          type="text"
-          name="title"
-          placeholder="Task Title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="time"
-          name="startTime"
-          value={formData.startTime}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="time"
-          name="endTime"
-          value={formData.endTime}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="durationMinutes"
-          placeholder="Duration (in minutes)"
-          value={formData.durationMinutes}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="proof"
-          placeholder="Proof (URL or text)"
-          value={formData.proof}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="punishment"
-          placeholder="Punishment description"
-          value={formData.punishment}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="punishmentDuration"
-          placeholder="Punishment duration (minutes)"
-          value={formData.punishmentDuration}
-          onChange={handleChange}
-        />
-        <label>
-          Reviewed by AI?
+        </div>
+
+        <form onSubmit={handleSubmit} className="task-form">
           <input
-            type="checkbox"
-            name="reviewedByAI"
-            checked={formData.reviewedByAI}
+            type="text"
+            name="title"
+            placeholder="Task Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="time"
+            name="startTime"
+            value={formData.startTime}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="time"
+            name="endTime"
+            value={formData.endTime}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="durationMinutes"
+            placeholder="Duration (in minutes)"
+            value={formData.durationMinutes}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="proof"
+            placeholder="Proof (URL or text)"
+            value={formData.proof}
             onChange={handleChange}
           />
-        </label>
-        <button type="submit">Create Task</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+          <input
+            type="text"
+            name="punishment"
+            placeholder="Punishment description"
+            value={formData.punishment}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="punishmentDuration"
+            placeholder="Punishment duration (minutes)"
+            value={formData.punishmentDuration}
+            onChange={handleChange}
+          />
+          <label>
+            Reviewed by AI?
+            <input
+              type="checkbox"
+              name="reviewedByAI"
+              checked={formData.reviewedByAI}
+              onChange={handleChange}
+            />
+          </label>
+          <button type="submit">Create Task</button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };

@@ -1,13 +1,15 @@
+.app-container {
+  width: 100%;
+  display: flex;
+  padding-top: 30px;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
 
-.app-container{
-    width: 100%;
-    display: flex;
-    padding-top: 30px;
-    justify-content: space-between;
-    gap: 20px;
-    position: relative;
 }
-.routes-container{
+
+.routes-container {
   flex-grow: 1;
   padding: 10px;
+
 }

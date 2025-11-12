@@ -8,14 +8,17 @@ import { AuthContextProvider } from './context/AuthContext.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { TaskContextProvier } from './context/TaskContext.jsx';
 import { PunistContextProvider } from './context/PunishmentContext.jsx';
+import { NotificationContextProvider } from './context/NotificationContext.jsx';
 createRoot(document.getElementById('root')).render(
 
   <AuthContextProvider>
     <TaskContextProvier>
       <PunistContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <NotificationContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </NotificationContextProvider>
       </PunistContextProvider>
     </TaskContextProvier>
   </AuthContextProvider>

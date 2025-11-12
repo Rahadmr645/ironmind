@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import './Login.css';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
@@ -7,48 +7,48 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { currState, setCurrState, setShowLogin, URL,} = useContext(AuthContext);
-  
-  const [isFormValid,  setIsFormValid] = useState(false);
-  
-  
+  const { currState, setCurrState, setShowLogin, URL, } = useContext(AuthContext);
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
+
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
     profilePic: '',
-   
+
   });
-  
-  
+
+
   useEffect(() => {
     document.body.style.overflow = "hidden"
-    
-    
-    return() => {
+
+
+    return () => {
       document.body.style.overflow = "auto"
     }
-  },[]);
-  
+  }, []);
+
   //chack formdata validation
   useEffect(() => {
-    if(currState === 'SignUp') {
+    if (currState === 'SignUp') {
       setIsFormValid(
-        formData.username.trim() !== '' && formData.email.trim() !== ''  &&
-          formData.password.trim() !== ''
-        );
+        formData.username.trim() !== '' && formData.email.trim() !== '' &&
+        formData.password.trim() !== ''
+      );
     } else {
       setIsFormValid(
         formData.email.trim() !== '' &&
         formData.password.trim() !== ''
-        );
+      );
     }
-  },[formData, currState]);
-  
-  
-  
+  }, [formData, currState]);
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,13 +95,17 @@ const Login = () => {
       // saving to the localstorage
 
 
-      setFormData({ username: '', email: '', password: '' });
+      setFormData({
+        username: '',
+        email: '',
+        password: ''
+      });
 
 
       navigate('/');
       setShowLogin(false)
 
-
+      window.location.reload();
 
     } catch (error) {
       console.error(error);
@@ -161,11 +165,11 @@ const Login = () => {
 
 
         <button type="submit" className="btn submitn-btn btn-primary submit-btn"
-         disabled={!isFormValid}
-         style={{
-           backgroundColor: isFormValid ? 'green' : '#abaa8b',
-           cursor: isFormValid ?  'pointer': 'not-allowed', 
-         }}
+          disabled={!isFormValid}
+          style={{
+            backgroundColor: isFormValid ? 'green' : '#abaa8b',
+            cursor: isFormValid ? 'pointer' : 'not-allowed',
+          }}
         >
           Submit
         </button>

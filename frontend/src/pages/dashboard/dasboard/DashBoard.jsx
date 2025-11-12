@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './DashBoard.css';
 import axios from "axios";
 import CreateTask from '../createtask/CreateTask.jsx';
@@ -9,10 +9,15 @@ import { BiLoaderCircle } from "react-icons/bi";
 import TaskTimer from '../../../components/tasktimer/TaskTimer.jsx';
 import DailyProgress from '../../../components/dailyprogress/DailyProgress.jsx';
 import DisciplineScore from '../../../components/disciplinescore/DisciplineScore.jsx';
+import { useNotificaitoin } from '../../../context/NotificationContext.jsx';
 
 const DashBoard = () => {
   const { user, URL } = useContext(AuthContext);
   const { showAddTask, setShowAddTask, taskContainer } = useContext(TaskContext);
+
+
+  const { showNotification } = useNotificaitoin();
+
 
   // Filter today's tasks
   const todayTasks = taskContainer.filter(item => {
@@ -24,6 +29,39 @@ const DashBoard = () => {
       taskDate.getFullYear() === today.getFullYear()
     );
   });
+
+  // check upcoming tasks
+  useEffect(() => {
+    const checkUpcomingTasks = () => {
+      const now = new Date().getTime();
+
+      const upcomingTask = todayTasks.find(task => {
+        const start = new Date(task.startTime).getTime();
+        const diff = (start - now) / (1000 * 60);
+        return diff > 0 && diff <= 10;
+      });
+
+
+
+      if (upcomingTask) {
+
+        showNotification({
+          title: "Upcominmg  task Alart",
+          message: `Your task ${upcomingTask.title}"starts in less than 10 minutes . Be ready`,
+          type: "Warning",
+          nonDismissable: true
+
+        })
+      }
+    };
+
+
+    const interval = setInterval(checkUpcomingTasks, 60 * 1000);
+    return () => clearInterval(interval);
+  }, [todayTasks])
+
+
+
 
   return (
     <div className="dashboard">

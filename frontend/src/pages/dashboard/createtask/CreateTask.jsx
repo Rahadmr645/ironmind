@@ -79,12 +79,17 @@ const CreateTask = () => {
       });
 
       setShowAddTask(false);
+      
+      window.location.reload();
     } catch (error) {
       setMessage(error.response?.data?.message || "Failed to create task");
       console.error(error.response?.data?.message)
     }
   };
 
+  useEffect(() => {
+
+  },[URL])
   return (
     <div className="task-container">
       <div className="task-form-container">

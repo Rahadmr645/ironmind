@@ -1,0 +1,20 @@
+.daily-progress {
+  background: #141821;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  color: #e4e7ee;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+p, span {
+  margin: 0;
+  font-size: 14px;
+}

@@ -1,0 +1,55 @@
+.discipline-score-box {
+   background: #141821;;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #e4e7ee;
+  box-shadow: 0 5px 20px rgba(0, 255, 153, 0.15), 0 0 10px rgba(0, 255, 153, 0.05);
+  width: 100%; /* takes parent width */
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.score-circle-container {
+  width: 100%;        
+  max-width: 140px;    
+  aspect-ratio: 1;     
+  margin-bottom: 0px;
+}
+
+.score-circle {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #1e2130;
+  stroke-width: 12;
+}
+
+.circle-progress {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke: url(#gradient);
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+.circle-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  fill: #00ff99;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg);
+}
+
+.select{
+    border: none;
+    border-radius: 5px;
+   
+}

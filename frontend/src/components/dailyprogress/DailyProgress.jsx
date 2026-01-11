@@ -15,8 +15,8 @@ const DailyProgress = () => {
                 taskDate.getFullYear() === today.getFullYear()
             );
         });
-    }, [taskContainer]);
-
+    }, [taskContainer]);  
+  
     const totalTasks = todayTasks.length;
     const completedTasks = todayTasks.filter(t => t.status === 'complete').length;
     const overdueTasks = todayTasks.filter(t => t.status === 'overdue').length;

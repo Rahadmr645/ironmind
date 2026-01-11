@@ -1,11 +1,12 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from "cors"
-
+import http from 'http';
 import connectToDB from './config/db.js';
 dotenv.config();
 import authRoutes from './routes/authRoutes.js'
 import taskRoutes from './routes/taskRoutes.js'
+import { initSocket } from './socket/Socket.js';
 const app = express();
 
 const port = process.env.PORT;
@@ -15,6 +16,10 @@ app.use(cors());
 connectToDB();
 
 
+const server = http.createServer(app);
+
+// initialize socket.io
+initSocket(server);
 
 // router section
 app.use('/api/user/', authRoutes);
@@ -24,6 +29,6 @@ app.use('/', (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`server is runnig on http://10.161.68.227:${port}`)
+server.listen(port, () => {
+    console.log(`server is runnig  on http://10.81.221.227:${port}`)
 })

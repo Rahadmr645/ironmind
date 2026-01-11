@@ -9,14 +9,14 @@ import { BiLoaderCircle } from "react-icons/bi";
 import TaskTimer from '../../../components/tasktimer/TaskTimer.jsx';
 import DailyProgress from '../../../components/dailyprogress/DailyProgress.jsx';
 import DisciplineScore from '../../../components/disciplinescore/DisciplineScore.jsx';
-import { useNotificaitoin } from '../../../context/NotificationContext.jsx';
+// import { useNotificaitoin } from '../../../context/NotificationContext.jsx';
 
 const DashBoard = () => {
   const { user, URL } = useContext(AuthContext);
   const { showAddTask, setShowAddTask, taskContainer } = useContext(TaskContext);
 
 
-  const { showNotification } = useNotificaitoin();
+  // const { showNotification } = useNotificaitoin();
 
 
   // Filter today's tasks

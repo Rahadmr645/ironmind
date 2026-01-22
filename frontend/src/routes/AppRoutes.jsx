@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 import { Routes, Route, Router } from 'react-router-dom'
 import DashBoard from '../pages/dashboard/dasboard/DashBoard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'

@@ -30,5 +30,5 @@ app.use('/', (req, res) => {
 
 
 server.listen(port, () => {
-    console.log(`server is runnig  on http://10.81.221.227:${port}`)
+    console.log(`server is runnig  on http://10.62.62.227:${port}`)
 })

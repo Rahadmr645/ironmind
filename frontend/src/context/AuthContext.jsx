@@ -74,7 +74,7 @@ const checkLocation = () => {
 
 
   // const URL = import.meta.env.VITE_API_URL;
-  const URL = "http://10.246.224.227:5003"
+  const URL = "http://10.62.62.227:5003"
 
   useEffect(() => {
     const decoded = getUserFromToken();

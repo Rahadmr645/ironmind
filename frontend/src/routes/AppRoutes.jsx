@@ -1,8 +1,9 @@
 import React from 'react'
-import { Routes, Route, Router } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import DashBoard from '../pages/dashboard/dasboard/DashBoard.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import Login from '../pages/auth/Login.jsx'
+import VerifyOtp from '../pages/auth/VerifyOtp.jsx'
 import MyAllTask from '../pages/dashboard/myalltask/MyAllTask.jsx'
 import TaskComplete from '../pages/dashboard/taskcomplete/TaskComplete.jsx'
 import TaskUnComplete from '../pages/dashboard/taskuncomplete/TaskUnComplete.jsx'
@@ -13,6 +14,7 @@ const AppRoutes = () => {
     <div className="routes-container">
       <Routes>
         <Route path='/login' element={<Login />} />
+        <Route path='/verify-otp' element={<VerifyOtp />} />
         <Route path="/" element={
           <ProtectedRoute>
             <DashBoard />

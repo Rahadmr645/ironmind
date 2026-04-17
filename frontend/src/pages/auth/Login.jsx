@@ -2,8 +2,6 @@ import React, { useEffect, useContext, useState } from 'react';
 import './Login.css';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
-
-import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -58,14 +56,15 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const isSignUp = currState === 'SignUp';
 
     const endPoint =
-      currState === 'SignUp'
+      isSignUp
         ? `${URL}/api/user/create`
         : `${URL}/api/user/login`;
 
     const bodyData =
-      currState === 'SignUp'
+      isSignUp
         ? formData
         : { email: formData.email, password: formData.password };
     console.log(bodyData)
@@ -76,20 +75,12 @@ const Login = () => {
         { headers: { 'Content-Type': 'application/json' } }
       );
       const data = res.data;
-      if (res.status === 200) {
-        alert('Success');
-        console.log(data);
-      } else {
-        alert('Fail: ' + data.message);
-      }
+      alert(data?.message || 'Success');
 
-      const token = res.data.token;
-
+      // Signup now returns OTP message (201) and no token until OTP verification.
+      const token = data?.token;
       if (token) {
-        localStorage.setItem("token", token);
-        console.log("token saved:", localStorage.getItem("token"));
-      } else {
-        console.log("no token found from backend")
+        localStorage.setItem('token', token);
       }
 
       // saving to the localstorage
@@ -101,15 +92,23 @@ const Login = () => {
         password: ''
       });
 
+      if (isSignUp) {
+        localStorage.setItem('pendingVerifyEmail', bodyData.email.trim());
+        navigate('/verify-otp', { state: { email: bodyData.email.trim() } });
+        return;
+      }
 
-      navigate('/');
-      setShowLogin(false)
 
-      window.location.reload();
+      if (!isSignUp && token) {
+        navigate('/');
+        setShowLogin(false);
+        window.location.reload();
+      }
 
     } catch (error) {
       console.error(error);
-      alert('Something went wrong: ' + error.message);
+      const backendMessage = error?.response?.data?.message;
+      alert(backendMessage || `Request failed: ${error.message}`);
     }
 
 

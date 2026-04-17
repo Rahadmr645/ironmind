@@ -132,6 +132,112 @@
   background: #0090d1;
 }
 
+.lock-box {
+  gap: 10px;
+  height: auto;
+  min-height: 300px;
+}
+
+.lock-section {
+  border: 1px solid rgba(0, 183, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lock-section-title {
+  margin: 0;
+  color: #90dbff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.lock-help-text {
+  margin: 0;
+  font-size: 12px;
+  color: #9ec2dc;
+}
+
+.lock-label {
+  margin: 0;
+  font-size: 12px;
+  color: #c9e9ff;
+}
+
+.lock-select,
+.lock-otp-input {
+  width: 100%;
+  border: 1px solid rgba(0, 183, 255, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  color: #dfe8f1;
+  border-radius: 8px;
+  padding: 9px 10px;
+  outline: none;
+}
+
+.lock-apps-input {
+  width: 100%;
+  min-height: 90px;
+  border: 1px solid rgba(0, 183, 255, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  color: #dfe8f1;
+  border-radius: 8px;
+  padding: 9px 10px;
+  outline: none;
+  resize: vertical;
+  font-size: 12px;
+}
+
+.lock-apps-input:focus {
+  border-color: #00b7ff;
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.15);
+}
+
+.lock-toggle-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #9ec2dc;
+  font-size: 12px;
+}
+
+.lock-toggle-label input {
+  accent-color: #00b7ff;
+}
+
+.lock-select:focus,
+.lock-otp-input:focus {
+  border-color: #00b7ff;
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.15);
+}
+
+.lock-btn-row {
+  display: flex;
+  justify-content: stretch;
+}
+
+.lock-btn {
+  width: 100%;
+}
+
+.lock-status-text,
+.lock-message-text {
+  font-size: 12px;
+  margin: 0;
+}
+
+.lock-status-text {
+  color: #9ec2dc;
+}
+
+.lock-message-text {
+  color: #7fffb0;
+}
+
 /* Timer Circle */
 .circle-timer {
   width: 120px;

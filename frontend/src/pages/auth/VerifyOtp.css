@@ -1,0 +1,81 @@
+.verify-otp-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  padding: 16px;
+}
+
+.verify-otp-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  gap: 10px;
+}
+
+.verify-otp-card h2 {
+  margin: 0;
+}
+
+.verify-otp-card p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #f2f2f2;
+}
+
+.otp-timer-text {
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+.otp-status-text {
+  margin: 2px 0 8px 0;
+  font-size: 13px;
+  color: #ffd27f;
+}
+
+.verify-otp-card input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.verify-btn,
+.resend-btn,
+.back-login-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.verify-btn {
+  background: #198754;
+  color: #fff;
+}
+
+.resend-btn {
+  background: #f0ad4e;
+  color: #111;
+}
+
+.back-login-btn {
+  background: #6c757d;
+  color: #fff;
+}
+
+.verify-btn:disabled,
+.resend-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

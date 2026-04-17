@@ -1,14 +1,13 @@
 import express from 'express';
-import {  userCreate, userLogin } from '../controller/userController.js';
-
+import { userCreate, userLogin } from '../controller/userController.js';
+import { otpStatus, resendOtp, verifyOtp } from '../controller/verifyotpcontroller.js';
 
 const router = express.Router();
 
-
-// 01: 
 router.post('/create', userCreate);
-
-// 02: 
+router.post('/verify-otp', verifyOtp);
+router.post('/resend-otp', resendOtp);
+router.post('/otp-status', otpStatus);
 router.post('/login', userLogin);
 
 // // 03: image update

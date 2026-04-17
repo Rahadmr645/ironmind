@@ -6,33 +6,10 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
 
   const [showLogin, setShowLogin] = useState(false);
-  const [currState, setCurrState] = useState('Signup');
+  const [currState, setCurrState] = useState('SignUp');
   const [user, setUser] = useState(null);
 
 
-  // // chack the location 
-  // const checkLocation = () => {
-  //   if (!("geolocation" in navigator)) {
-  //     alert("Your device does not support location.")
-  //     return;
-  //   }
-
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       console.log("Location is ON", position);
-  //     },
-  //     (error) => {
-  //       if (error.code === error.PERMISSION_DENIED) {
-  //         alert("Please enable location permission for this site.");
-
-  //       } else if (error.code === error.POSITION_UNAVAILABLE) {
-  //         alert("location service is turned off. Plase enable GPS");
-  //       } else if (error.code === error.TIMEOUT) {
-  //         alert("Unable to retrieve location. Plese try again");
-  //       }
-  //     }
-  //   )
-  // }
 
 
   // check GPS and permission properly
@@ -73,8 +50,7 @@ const checkLocation = () => {
 
 
 
-  // const URL = import.meta.env.VITE_API_URL;
-  const URL = "http://10.62.62.227:5003"
+  const URL = import.meta.env.VITE_API_URL || 'http://localhost:5003';
 
   useEffect(() => {
     const decoded = getUserFromToken();

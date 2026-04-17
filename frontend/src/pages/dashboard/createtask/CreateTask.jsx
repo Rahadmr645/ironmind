@@ -94,62 +94,97 @@ const CreateTask = () => {
     <div className="task-container">
       <div className="task-form-container">
         <div className="task-form-header">
-          <h2>Create New Task</h2>
-          <h2 onClick={() => setShowAddTask(false)} className="task-cancel-icon"><MdOutlineCancel /></h2>
+          <div>
+            <h2>Create Task</h2>
+            <p className="task-form-subtitle">Plan your next action with clear deadlines.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowAddTask(false)}
+            className="task-cancel-icon"
+            aria-label="Close task form"
+          >
+            <MdOutlineCancel />
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="task-form">
-          <input
-            type="text"
-            name="title"
-            placeholder="Task Title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-          <label>
-            Start Time
-          <input
-            type="datetime-local"
-            name="startTime"
-            value={formData.startTime}
-            onChange={handleChange}
-            required
-          />
-           </label>
-          <label>End Time 
-           <input
-            type="datetime-local"
-            name="endTime"
-            value={formData.endTime}
-            onChange={handleChange}
-            required
-          />
-          </label>
-         
-          <input
-            type="text"
-            name="proof"
-            placeholder="Proof (URL or text)"
-            value={formData.proof}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="punishment"
-            placeholder="Punishment description"
-            value={formData.punishment}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            name="punishmentDuration"
-            placeholder="Punishment duration (minutes)"
-            value={formData.punishmentDuration}
-            onChange={handleChange}
-          />
-          <label>
-            Reviewed by AI?
+          <div className="field-group">
+            <label htmlFor="task-title">Task Title</label>
+            <input
+              id="task-title"
+              type="text"
+              name="title"
+              placeholder="Ex: Morning cardio and stretching"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="field-row">
+            <div className="field-group">
+              <label htmlFor="task-start-time">Start Time</label>
+              <input
+                id="task-start-time"
+                type="datetime-local"
+                name="startTime"
+                value={formData.startTime}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="field-group">
+              <label htmlFor="task-end-time">End Time</label>
+              <input
+                id="task-end-time"
+                type="datetime-local"
+                name="endTime"
+                value={formData.endTime}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="task-proof">Proof</label>
+            <input
+              id="task-proof"
+              type="text"
+              name="proof"
+              placeholder="URL, notes, or evidence details"
+              value={formData.proof}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="task-punishment">Punishment Description</label>
+            <input
+              id="task-punishment"
+              type="text"
+              name="punishment"
+              placeholder="What happens if task is missed?"
+              value={formData.punishment}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="task-punishment-duration">Punishment Duration (minutes)</label>
+            <input
+              id="task-punishment-duration"
+              type="number"
+              name="punishmentDuration"
+              placeholder="Ex: 20"
+              value={formData.punishmentDuration}
+              onChange={handleChange}
+            />
+          </div>
+
+          <label className="checkbox-row">
+            <span>Reviewed by AI</span>
             <input
               type="checkbox"
               name="reviewedByAI"
@@ -159,7 +194,7 @@ const CreateTask = () => {
           </label>
           <button type="submit">Create Task</button>
         </form>
-        {message && <p>{message}</p>}
+        {message && <p className="task-message">{message}</p>}
       </div>
     </div>
   );

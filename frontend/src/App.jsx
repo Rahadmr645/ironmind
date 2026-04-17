@@ -6,14 +6,16 @@ import { TaskContext } from './context/TaskContext.jsx'
 import CreateTask from './pages/dashboard/createtask/CreateTask.jsx'
 // import { requestNotificationPermission } from './utils/notificationPermission.js'
 import { generateToken } from './utils/Firebase.js'
-import TestFCM from './TestFCM.jsx'
 import { checkNotificationPermission, requestNotificationPermission } from './components/notificaitonpermission/notificationPermission.js'
 import NotificationPopup from './components/notificaitonpermission/NotificationPopup.jsx'
+import { useLocation } from 'react-router-dom'
 
 // import DashBoard from './pages/dashboard/dasboard/DashBoard.jsx'
 
 const App = () => {
   const { showAddTask } = useContext(TaskContext);
+  const location = useLocation();
+  const isAuthRoute = location.pathname === '/login' || location.pathname === '/verify-otp';
   const [showPopup, setShowPopup] = useState(false);
 
   const [notyPopup, setNotyPopup] = useState(false);
@@ -57,9 +59,8 @@ const App = () => {
         <CreateTask />
 
       }
-      <Sidebar />
+      {!isAuthRoute && <Sidebar />}
       <AppRoutes />
-      <TestFCM />
       <NotificationPopup
         show={showPopup}
         onClose={setShowPopup}

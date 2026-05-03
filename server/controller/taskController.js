@@ -36,9 +36,14 @@ export const taskCreate = async (req, res) => {
     proof, 
     punishment, 
     punishmentDuration,
-    reviewedByAI 
-      
+    reviewedByAI,
+    useCustomTaskLock,
+    lockedAppsDuringTask,
     } = req.body
+
+    const cleanedTaskLockApps = Array.isArray(lockedAppsDuringTask)
+      ? [...new Set(lockedAppsDuringTask.map((app) => String(app).trim()).filter(Boolean))]
+      : []
 
 
     if (!userId) return res.status(400).json({ message: "please enter userId" });
@@ -58,8 +63,9 @@ export const taskCreate = async (req, res) => {
       proof,
       punishment,
       punishmentDuration,
-      reviewedByAI
-
+      reviewedByAI,
+      useCustomTaskLock: Boolean(useCustomTaskLock),
+      lockedAppsDuringTask: Boolean(useCustomTaskLock) ? cleanedTaskLockApps : [],
     });
 
     await newTask.save();

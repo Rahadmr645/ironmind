@@ -8,6 +8,8 @@ import MyAllTask from '../pages/dashboard/myalltask/MyAllTask.jsx'
 import TaskComplete from '../pages/dashboard/taskcomplete/TaskComplete.jsx'
 import TaskUnComplete from '../pages/dashboard/taskuncomplete/TaskUnComplete.jsx'
 import Profile from '../pages/settings/profile/Profile.jsx'
+import FocusMode from '../pages/dashboard/focus/FocusMode.jsx'
+
 const AppRoutes = () => {
 
   return (
@@ -20,10 +22,31 @@ const AppRoutes = () => {
             <DashBoard />
           </ProtectedRoute>
         } />
-        <Route path='/myAllTask' element={<MyAllTask />} />
-        <Route path='/task-complete' element={<TaskComplete />} />
-        <Route path='/tasks-failed' element={<TaskUnComplete />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/myAllTask' element={
+          <ProtectedRoute>
+            <MyAllTask />
+          </ProtectedRoute>
+        } />
+        <Route path='/task-complete' element={
+          <ProtectedRoute>
+            <TaskComplete />
+          </ProtectedRoute>
+        } />
+        <Route path='/tasks-failed' element={
+          <ProtectedRoute>
+            <TaskUnComplete />
+          </ProtectedRoute>
+        } />
+        <Route path='/profile' element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path='/focus' element={
+          <ProtectedRoute>
+            <FocusMode />
+          </ProtectedRoute>
+        } />
       </Routes>
     </div>
   )

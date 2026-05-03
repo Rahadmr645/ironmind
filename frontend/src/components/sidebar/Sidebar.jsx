@@ -27,17 +27,22 @@ const Sidebar = () => {
 
 
     return (
-        <div className='sidebar-container'>
-            <h2>IronMind</h2>
+        <nav className='sidebar-container' aria-label="Main navigation">
+            <h2 className="sidebar-brand">IronMind</h2>
             <div className="sideber-section">
                 {menuItems.map((item, index) => (
-                    <NavLink to={item.path} key={index} className='item-box' >
-                        <p>{item.icon}</p>
-                        <p className="d-none d-md-block">{item.label}</p>
+                    <NavLink
+                        to={item.path}
+                        key={index}
+                        className={({ isActive }) => `item-box${isActive ? ' active' : ''}`}
+                        title={item.label}
+                    >
+                        <span className="item-box__icon">{item.icon}</span>
+                        <span className="sidebar-label">{item.label}</span>
                     </NavLink>
                 ))}
             </div>
-        </div>
+        </nav>
     )
 }
 

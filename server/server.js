@@ -15,6 +15,14 @@ app.use(express.json());
 app.use(cors());
 
 const server = http.createServer(app);
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${port} is already in use. Stop the other process or set PORT in .env.`);
+  } else {
+    console.error('Server error:', err.message);
+  }
+  process.exit(1);
+});
 initSocket(server);
 
 app.use('/api/user/', authRoutes);
@@ -27,8 +35,9 @@ app.use('/', (req, res) => {
 const start = async () => {
   try {
     await connectToDB();
-    server.listen(port, () => {
-      console.log(`Server listening on http://10.62.62.227:${port}`);
+    // Bind all IPv4 interfaces so LAN phones / other machines can reach this API (not only localhost).
+    server.listen(port, '0.0.0.0', () => {
+      console.log(`Server listening on http://0.0.0.0:${port} (all IPv4 interfaces)`);
     });
   } catch (err) {
     console.error('Failed to start server:', err.message);

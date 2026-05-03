@@ -38,7 +38,7 @@ export const verifyOtp = async (req, res) => {
     await user.save();
 
     const token = JWT.sign(
-      { id: user._id, email: user.email, username: user.username },
+      { id: String(user._id), email: user.email, username: user.username },
       SECTRATE_KEY,
       { expiresIn: '1d' }
     );

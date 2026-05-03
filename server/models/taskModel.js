@@ -58,6 +58,15 @@ const taskSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    /** When true, Android lock client uses only lockedAppsDuringTask during this task window (empty = no apps locked). When false, use global policy blocked apps. */
+    useCustomTaskLock: {
+      type: Boolean,
+      default: false,
+    },
+    lockedAppsDuringTask: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );

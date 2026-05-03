@@ -59,6 +59,12 @@ class MainActivity : ComponentActivity() {
             fetchAndApplyPolicySelection()
         }
 
+        findViewById<Button>(R.id.btnSyncWebCatalog).setOnClickListener {
+            prefs.baseUrl = etBaseUrl.text.toString()
+            prefs.userId = etUserId.text.toString()
+            syncInstalledAppsToWeb()
+        }
+
         findViewById<Button>(R.id.btnSavePolicy).setOnClickListener {
             prefs.baseUrl = etBaseUrl.text.toString()
             prefs.userId = etUserId.text.toString()
@@ -135,6 +141,26 @@ class MainActivity : ComponentActivity() {
                 tvStatus.text = "Status: policy loaded from server"
             } catch (e: Exception) {
                 tvStatus.text = "Status: failed to load policy (${e.message})"
+            }
+        }
+    }
+
+    private fun syncInstalledAppsToWeb() {
+        if (prefs.baseUrl.isBlank() || prefs.userId.isBlank()) {
+            tvStatus.text = "Status: set Base URL and User ID first"
+            return
+        }
+
+        val pairs = installedApps.map { it.label to it.packageName }
+        uiScope.launch {
+            try {
+                val api = LockApiClient(prefs.baseUrl)
+                val msg = withContext(Dispatchers.IO) {
+                    api.syncDeviceAppsCatalog(prefs.userId, pairs).message
+                }
+                tvStatus.text = "Status: $msg (${pairs.size} apps)"
+            } catch (e: Exception) {
+                tvStatus.text = "Status: sync failed (${e.message})"
             }
         }
     }

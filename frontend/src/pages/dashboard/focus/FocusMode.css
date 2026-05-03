@@ -1,0 +1,74 @@
+.focus-mode-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+}
+
+.focus-mode-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  color: #fff;
+}
+
+.focus-mode-lead {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+
+.focus-mode-back {
+  display: inline-block;
+  color: #00f6ff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.focus-mode-back:hover {
+  text-decoration: underline;
+}
+
+.focus-mode-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.focus-mode-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  padding: 14px 16px;
+  border: 1px solid rgba(128, 128, 128, 0.45);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.focus-task-title {
+  flex: 1 1 100%;
+  font-weight: 600;
+  color: #fff;
+}
+
+.focus-task-meta {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.focus-task-status {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 246, 255, 0.35);
+  color: #00f6ff;
+}
+
+.focus-mode-empty {
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}

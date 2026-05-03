@@ -1,7 +1,17 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { getUserFromToken } from '../utils/DecodeToken.jsx'
 export const AuthContext = createContext();
 
+function resolveApiBase() {
+  const explicit = import.meta.env.VITE_API_URL;
+  if (explicit) return String(explicit).replace(/\/$/, '');
+  if (import.meta.env.DEV) return '';
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname } = window.location;
+    return `${protocol}//${hostname}:5003`;
+  }
+  return 'http://10.23.136.227:5003';
+}
 
 export const AuthContextProvider = ({ children }) => {
 
@@ -50,7 +60,7 @@ const checkLocation = () => {
 
 
 
-  const URL = import.meta.env.VITE_API_URL || 'http://localhost:5003';
+  const URL = useMemo(() => resolveApiBase(), []);
 
   useEffect(() => {
     const decoded = getUserFromToken();

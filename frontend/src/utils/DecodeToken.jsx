@@ -21,6 +21,7 @@ import { jwtDecode } from 'jwt-decode'
         return decoded;
     } catch (error) {
         console.error("invalid token:", error)
+        localStorage.removeItem("token");
         return null;
 
     }

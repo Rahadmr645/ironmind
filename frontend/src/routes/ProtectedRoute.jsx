@@ -1,10 +1,11 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
+import { getUserFromToken } from '../utils/DecodeToken.jsx'
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('token')
+  const session = getUserFromToken()
 
-  if (!token) {
+  if (!session) {
     return <Navigate to="/login" replace />
   }
 

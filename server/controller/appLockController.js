@@ -4,6 +4,7 @@ import UnlockOtp from '../models/unlockOtpModel.js';
 import AppLockSession from '../models/appLockSessionModel.js';
 import AppLockPolicy from '../models/appLockPolicyModel.js';
 import { sendOtp } from '../utils/sendOtp.js';
+import { setDeviceAppCatalog, getDeviceAppCatalog } from '../utils/deviceAppCatalogStore.js';
 
 const OTP_VALIDITY_MS = 5 * 60 * 1000;
 const DEFAULT_UNLOCK_MINUTES = Number(process.env.APP_UNLOCK_MINUTES || 30);
@@ -205,24 +206,6 @@ export const getLockDecision = async (req, res) => {
       return res.status(400).json({ message: 'userId is required' });
     }
 
-    const policy = await AppLockPolicy.findOne({ userId }).select('isEnabled blockedApps');
-    if (policy && !policy.isEnabled) {
-      return res.status(200).json({
-        shouldLock: false,
-        reason: 'policy_disabled',
-      });
-    }
-
-    if (packageName) {
-      const isBlocked = (policy?.blockedApps || []).includes(String(packageName).trim());
-      if (!isBlocked) {
-        return res.status(200).json({
-          shouldLock: false,
-          reason: 'app_not_blocked',
-        });
-      }
-    }
-
     const now = new Date();
     const activeTask = await Task.findOne({
       userId,
@@ -235,6 +218,36 @@ export const getLockDecision = async (req, res) => {
         shouldLock: false,
         reason: 'outside_task_window',
       });
+    }
+
+    const policy = await AppLockPolicy.findOne({ userId }).select('isEnabled blockedApps');
+
+    const useCustomTaskLock = activeTask.useCustomTaskLock === true;
+    const taskLockApps = Array.isArray(activeTask.lockedAppsDuringTask)
+      ? activeTask.lockedAppsDuringTask.map((a) => String(a).trim()).filter(Boolean)
+      : [];
+
+    let effectiveBlockedApps;
+    if (useCustomTaskLock) {
+      effectiveBlockedApps = [...new Set(taskLockApps)];
+    } else {
+      if (policy && !policy.isEnabled) {
+        return res.status(200).json({
+          shouldLock: false,
+          reason: 'policy_disabled',
+        });
+      }
+      effectiveBlockedApps = [...new Set((policy?.blockedApps || []).map((a) => String(a).trim()).filter(Boolean))];
+    }
+
+    if (packageName) {
+      const isBlocked = effectiveBlockedApps.includes(String(packageName).trim());
+      if (!isBlocked) {
+        return res.status(200).json({
+          shouldLock: false,
+          reason: 'app_not_blocked',
+        });
+      }
     }
 
     if (!isTaskCompleted(activeTask)) {
@@ -266,6 +279,64 @@ export const getLockDecision = async (req, res) => {
       reason: 'otp_required_after_completion',
       taskId: activeTask._id,
       taskTitle: activeTask.title,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+/** Android client uploads launchable apps so the web Create Task form can show the real device list. */
+export const postDeviceAppsCatalog = async (req, res) => {
+  try {
+    const { userId, apps } = req.body;
+    if (!userId) {
+      return res.status(400).json({ message: 'userId is required' });
+    }
+    if (!Array.isArray(apps)) {
+      return res.status(400).json({ message: 'apps must be an array' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const seen = new Set();
+    const cleaned = [];
+    for (const item of apps) {
+      const pkg = String(item?.packageName || item?.package || '').trim();
+      if (!pkg || seen.has(pkg)) continue;
+      seen.add(pkg);
+      const name = String(item?.name || item?.label || item?.appName || pkg).trim() || pkg;
+      cleaned.push({ packageName: pkg, name });
+    }
+
+    setDeviceAppCatalog(userId, cleaned);
+    return res.status(200).json({
+      message: 'Device app catalog updated',
+      count: cleaned.length,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getDeviceAppsCatalog = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    if (!userId) {
+      return res.status(400).json({ message: 'userId is required' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const cat = getDeviceAppCatalog(userId);
+    return res.status(200).json({
+      apps: cat?.apps || [],
+      syncedAt: cat?.syncedAt || null,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

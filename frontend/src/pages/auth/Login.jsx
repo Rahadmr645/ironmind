@@ -107,7 +107,17 @@ const Login = () => {
 
     } catch (error) {
       console.error(error);
+      const status = error?.response?.status;
       const backendMessage = error?.response?.data?.message;
+      if (status === 403 && !isSignUp) {
+        const email = formData.email.trim();
+        if (email) {
+          localStorage.setItem('pendingVerifyEmail', email);
+          alert(backendMessage || 'Please verify your email with the OTP before logging in.');
+          navigate('/verify-otp', { state: { email } });
+          return;
+        }
+      }
       alert(backendMessage || `Request failed: ${error.message}`);
     }
 

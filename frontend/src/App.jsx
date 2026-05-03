@@ -54,7 +54,7 @@ const App = () => {
     }
   };
   return (
-    <div className='app-container'>
+    <div className={`app-container${!isAuthRoute ? ' app-container--with-nav' : ''}`}>
       {showAddTask &&
         <CreateTask />
 

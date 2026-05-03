@@ -118,6 +118,36 @@ class LockApiClient(private val baseUrl: String) {
             }
         }
 
+    suspend fun syncDeviceAppsCatalog(
+        userId: String,
+        apps: List<Pair<String, String>>
+    ): GenericResponse = withContext(Dispatchers.IO) {
+        val arr = JSONArray()
+        for ((name, packageName) in apps) {
+            arr.put(
+                JSONObject()
+                    .put("packageName", packageName)
+                    .put("name", name)
+            )
+        }
+        val bodyJson = JSONObject()
+            .put("userId", userId)
+            .put("apps", arr)
+            .toString()
+        val request = Request.Builder()
+            .url("$baseUrl/api/lock/device-apps")
+            .post(bodyJson.toRequestBody(jsonType))
+            .build()
+        client.newCall(request).execute().use { response ->
+            val raw = response.body?.string().orEmpty()
+            val json = JSONObject(raw.ifBlank { "{}" })
+            if (!response.isSuccessful) {
+                throw IllegalStateException(json.optString("message", "Sync device apps failed"))
+            }
+            GenericResponse(json.optString("message", "Synced"))
+        }
+    }
+
     suspend fun upsertLockPolicy(
         userId: String,
         isEnabled: Boolean,
